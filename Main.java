@@ -16,10 +16,9 @@ public class Main {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setTitle("BalaDice");
-
-        GameInterface gamePanel = new GameInterface();
-
-
+        main.GameInterface gamePanel = new main.GameInterface();
+        window.add(gamePanel);
+        window.pack();
         window.setLocationRelativeTo(null);
         window.setVisible(true);
     }
