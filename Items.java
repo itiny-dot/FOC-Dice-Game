@@ -2,7 +2,7 @@ public class Items {
 	private boolean isConsumable;
 	private int delta;
 	
-	public Item (boolean consumable, int delta) {
+	public Items (boolean consumable, int delta) {
 		isConsumable = consumable;
 		this.delta = delta;
 	}
