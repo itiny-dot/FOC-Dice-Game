@@ -1,4 +1,4 @@
-public class Item {
+public class Items {
 	private boolean isConsumable;
 	private int delta;
 	
