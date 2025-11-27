@@ -13,13 +13,14 @@ public class Main {
     public static void main(String[] args) {
 
         JFrame window = new JFrame();
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(false);
-        window.setTitle("BalaDice");
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Ends program when window is closed
+        window.setResizable(false); //Disables resizability (game can't resize display with it)
+        window.setTitle("BalaDice"); //Window display name
         main.GameInterface gamePanel = new main.GameInterface();
-        window.add(gamePanel);
-        window.pack();
+        window.add(gamePanel); //Opens game window
+        window.pack(); 
         window.setLocationRelativeTo(null);
-        window.setVisible(true);
+        window.setVisible(true); //Makes window display
+        gamePanel.startGameThread(); //Starts runtimer
     }
 }
