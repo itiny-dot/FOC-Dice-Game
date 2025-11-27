@@ -33,15 +33,31 @@ public class GameInterface extends JPanel implements Runnable {
 
     @Override
     public void run() {
-        while (gameThread != null) {
-            //Update Frame for animations
-            update();
-            //Redraws the screen each frame change
-            repaint();
-        }
-    }
+            long currentTime = System.currentTimeMillis();
+            double drawInterval = 1000/fps;
+            double nextDrawTime = System.currentTimeMillis() + drawInterval;
+            while (gameThread != null) {
+                //Update Frame for animations
+                update();
+                //Redraws the screen each frame change
+                repaint();
 
-    public void update() {
+                try {
+                    double remainingTime = nextDrawTime - System.currentTimeMillis();
+                    remainingTime = remainingTime / 1000;
+
+                    if (remainingTime < 0) {
+                        remainingTime = 0;
+                    }
+                    Thread.sleep((long) remainingTime);
+                    nextDrawTime += drawInterval;
+                } catch (InterruptedException e) {
+                e.printStackTrace();
+                }
+            }
+        }
+
+    public void update() {//May use for button presses
 
     }
 
