@@ -12,12 +12,13 @@ public class Dice {
         return faces[rollValue];
         //random value picks the index of a given face of a die to allow for die editing
     }
-    public static boolean changeFace(int face,int delta) {
+    public static boolean changeFace(int face, int delta) {
     	//changes die face by a delta amount provided result is a positive int
     	if (faces[face]+delta>0) {
-    		faces[face]+=delta;
-    		return true;
-        } else return false;
+            faces[face] += delta;
+            return true;
+        } else
+            return false;
+
     }
 }
-
