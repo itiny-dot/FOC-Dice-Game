@@ -212,7 +212,7 @@ public class GameInterface extends JPanel implements Runnable {
     }
     private void drawMenu(Graphics2D g2) {
         g2.setColor(Color.white);
-        g2.setFont(new Font("Arial", Font.BOLD, 48));
+        g2.setFont(new Font("Arial", Font.BOLD, 64));
 
         String title = "BalaDice";
         int width = g2.getFontMetrics().stringWidth(title);
@@ -235,7 +235,6 @@ public class GameInterface extends JPanel implements Runnable {
         }
         g2.setColor(Color.white);
         g2.setFont(getPixelFont(32f));
-        g2.drawString("Hello Pixel World!", 100, 80);
         g2.drawString("RerollCount: " + RerollCount, 100, 80);
 
         // Draw dice
