@@ -101,6 +101,7 @@ public class GameInterface extends JPanel implements Runnable {
     private void switchToGame() {
         gameState = STATE_PLAY;
         startButton.setVisible(false);
+        tutorialButton.setVisible(false);
         setupGameButtons();
         repaint();
     }

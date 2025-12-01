@@ -28,9 +28,9 @@ public class Score {
         // Four of a kind, Three of a kind, etc.
         for (int i = 6; i >= 0; i--) {
             if (!count.containsKey(i)) continue;
-            if (count.get(i) == 4 && (i+i+i+i > score)) score = i + i + i + i;
-            if (count.get(i) == 3 && (i+i+i > score)) score = i + i + i;
-            if (count.get(i) == 2 && (i+i > score)) score = i + i;
+            if (count.get(i) == 4 && ((4 * i) > score)) score = 4 * i;
+            if (count.get(i) == 3 && ((3 * i) > score)) score = 3 * i;
+            if (count.get(i) == 2 && ((2 * i) > score)) score = 2 * i;
             if (count.get(i) == 1 && (i > score)) score = i;
         }
         return score;
