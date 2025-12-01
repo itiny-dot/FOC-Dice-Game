@@ -1,3 +1,4 @@
+package main;
 
 public class Logic {
     private static final int numDice = 5;

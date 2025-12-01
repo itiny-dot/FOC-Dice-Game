@@ -1,3 +1,5 @@
+package main;
+
 public class Items {
 	private boolean isConsumable;
 	private int delta;

@@ -39,6 +39,7 @@ public class GameInterface extends JPanel implements Runnable {
 
     // --- BUTTONS ---
     private JButton startButton;
+    private JButton tutorialButton;
     private JButton rollAllButton;
     private JButton[] rerollButtons = new JButton[5];
     private JButton finishRollingButton;
@@ -86,6 +87,14 @@ public class GameInterface extends JPanel implements Runnable {
         startButton.setBounds(screenWidth/2 - 200, screenHeight/2 - 50, 400, 100);
         startButton.addActionListener(e -> switchToGame());
         this.add(startButton);
+
+        tutorialButton = new JButton("HOW TO PLAY");
+        tutorialButton.setFont(pixelFont.deriveFont(32f));
+        tutorialButton.setBounds(screenWidth/2 - 200, screenHeight/2 + 200, 400, 100);
+        tutorialButton.addActionListener(e -> {
+            JOptionPane.showMessageDialog(this, "HOW TO PLAY: BalaDice is a game of both luck and skill. The concept of the game\nis to roll dice to meet a score threshold that increases each successful round.\nScoring rules for the dice are modeled after Yahtzee rules. The objective of the game\nis to pass as many rounds as possible. There is a shop where you can purchase items\nthat make it easier to win. Good luck and have fun!");
+        });
+        this.add(tutorialButton);
     }
     private void switchToGame() {
         gameState = STATE_PLAY;
