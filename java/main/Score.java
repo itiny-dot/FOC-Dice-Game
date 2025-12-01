@@ -16,9 +16,12 @@ public class Score {
         // Yahtzee
         if (count.containsValue(5)) return 50;
         // 5 length straight
-        if (count.size() == 5) return 40;
+        if (count.size() == 5 && count.containsKey(2) && count.containsKey(3) && count.containsKey(4) && count.containsKey(5)) return 40;
         // 4 length straight
-        if (count.size() == 4) return 30;
+        if (count.size() == 4 && count.containsKey(3) && count.containsKey(4)) {
+            if (count.containsKey(2) && (count.containsKey(1) || count.containsKey(5))) return 30;
+            else if (count.containsKey(5) && count.containsKey(6)) return 30;
+        }
         // Full House
         if (count.containsValue(3) && count.containsValue(2)) return 25;
         // Four of a kind, Three of a kind, etc.
