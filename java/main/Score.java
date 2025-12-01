@@ -25,19 +25,12 @@ public class Score {
         // Full House
         if (count.containsValue(3) && count.containsValue(2)) return 25;
         // Four of a kind, Three of a kind, etc.
-        if (count.containsValue(4) || count.containsValue(3)) {
-            for (int i = 6; i >= 0; i--) {
-                if (count.get(i) == 4) return i + i + i + i;
-            }
-            for (int i = 6; i >= 0; i--) {
-                if (count.get(i) == 3) return i + i + i;
-            }
-            for (int i = 6; i >= 0; i--) {
-                if (count.get(i) == 2) return i + i;
-            }
-            for (int i = 6; i >= 0; i--) {
-                if (count.get(i) == 1) return i;
-            }
+        for (int i = 6; i >= 0; i--) {
+            if (!count.containsKey(i)) continue;
+            if (count.get(i) == 4 && (i+i+i+i > score)) score = i + i + i + i;
+            if (count.get(i) == 3 && (i+i+i > score)) score = i + i + i;
+            if (count.get(i) == 2 && (i+i > score)) score = i + i;
+            if (count.get(i) == 1 && (i > score)) score = i;
         }
         return score;
     }

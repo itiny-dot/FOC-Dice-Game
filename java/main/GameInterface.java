@@ -135,6 +135,7 @@ public class GameInterface extends JPanel implements Runnable {
 
         finishRollingButton.addActionListener(e -> {
             score = Score.getScore(diceValues);
+            repaint();
             if (score >= quota) JOptionPane.showMessageDialog(this, "Success");
             else JOptionPane.showMessageDialog(this, "Failure");
 
@@ -255,7 +256,7 @@ public class GameInterface extends JPanel implements Runnable {
         g2.setColor(Color.white);
         g2.setFont(getPixelFont(32f));
         g2.drawString("RerollCount: " + RerollCount, 100, 80);
-        g2.drawString("Score: " + score + " / " + quota, screenWidth - 200, screenHeight - 100);
+        g2.drawString("Score: " + score + " / " + quota, screenWidth - 300, screenHeight - 100);
 
         // Draw dice
         for (int i = 0; i < 5; i++) {
