@@ -43,6 +43,8 @@ public class GameInterface extends JPanel implements Runnable {
     private JButton rollAllButton;
     private JButton[] rerollButtons = new JButton[5];
     private JButton finishRollingButton;
+    private JButton shopButton;
+    private JButton inventoryButton;
 
     // DICE
     private final int DICE_COUNT = 5;
@@ -119,6 +121,22 @@ public class GameInterface extends JPanel implements Runnable {
 
         this.add(rollAllButton);
 
+    // ---------- SHOP BUTTON ----------
+    shopButton = new JButton("SHOP");
+    shopButton.setFont(new Font("Arial", Font.BOLD, 20));
+    // Position it to the left of ROLL
+    shopButton.setBounds(screenWidth/2 - 300, 450, 150, 50);
+    shopButton.addActionListener(e -> openShop());
+    this.add(shopButton);
+
+    // ---------- INVENTORY BUTTON ----------
+    inventoryButton = new JButton("INVENTORY");
+    inventoryButton.setFont(new Font("Arial", Font.BOLD, 20));
+    // Position it to the right of ROLL
+    inventoryButton.setBounds(screenWidth/2 + 160, 450, 200, 50);
+    inventoryButton.addActionListener(e -> openInventory());
+    this.add(inventoryButton);
+
         // Each reroll button
         for (int i = 0; i < 5; i++) {
             rerollButtons[i] = new JButton("Reroll");
@@ -137,6 +155,7 @@ public class GameInterface extends JPanel implements Runnable {
             this.add(rerollButtons[i]);
         }
 
+
         //Submit Dice for Scoring Button
         finishRollingButton = new JButton("Submit Dice");
         finishRollingButton.setFont(new Font("Arial", Font.BOLD, 24));
@@ -152,6 +171,16 @@ public class GameInterface extends JPanel implements Runnable {
 
         this.add(finishRollingButton);
     }
+
+    // ---------------- Shop Button ---------------
+    private void openShop(){
+        JOptionPane.showMessageDialog(this, "Shop is not implemented yet");
+    }
+
+    private void openInventory(){
+        JOptionPane.showMessageDialog(this, "Inventory is not implemented yet");
+    }
+
     //Grays out buttons and makes them unusable when out of rerolls
     private void updateRollAvailability() {
         rollAllButton.setEnabled(RerollCount > 0);

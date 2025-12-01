@@ -3,6 +3,7 @@ package main;
 import java.util.HashMap;
 
 public class Score {
+    
     public static int getScore(int[] dice) {
         //Calculates highest possible score from dice set using modified Yahtzee rules (Adjust for balance since rerolls work differently from Yahtzee)
         int score = 0;
