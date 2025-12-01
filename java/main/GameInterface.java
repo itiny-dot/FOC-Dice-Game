@@ -33,10 +33,15 @@ public class GameInterface extends JPanel implements Runnable {
     // rerolls counter
     private int RerollCount = 5;
 
+    //Scoring and Quota
+    private int score = 0;
+    private int quota = 20;
+
     // --- BUTTONS ---
     private JButton startButton;
     private JButton rollAllButton;
     private JButton[] rerollButtons = new JButton[5];
+    private JButton finishRollingButton;
 
     // DICE
     private final int DICE_COUNT = 5;
@@ -122,6 +127,20 @@ public class GameInterface extends JPanel implements Runnable {
 
             this.add(rerollButtons[i]);
         }
+
+        //Submit Dice for Scoring Button
+        finishRollingButton = new JButton("Submit Dice");
+        finishRollingButton.setFont(new Font("Arial", Font.BOLD, 24));
+        finishRollingButton.setBounds(screenWidth/2 - 100, 550, 200, 60);
+
+        finishRollingButton.addActionListener(e -> {
+            score = Score.getScore(diceValues);
+            if (score >= quota) JOptionPane.showMessageDialog(this, "Success");
+            else JOptionPane.showMessageDialog(this, "Failure");
+
+        });
+
+        this.add(finishRollingButton);
     }
     //Grays out buttons and makes them unusable when out of rerolls
     private void updateRollAvailability() {
@@ -236,6 +255,7 @@ public class GameInterface extends JPanel implements Runnable {
         g2.setColor(Color.white);
         g2.setFont(getPixelFont(32f));
         g2.drawString("RerollCount: " + RerollCount, 100, 80);
+        g2.drawString("Score: " + score + " / " + quota, screenWidth - 200, screenHeight - 100);
 
         // Draw dice
         for (int i = 0; i < 5; i++) {
