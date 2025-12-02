@@ -8,7 +8,7 @@ import java.util.Random;
 public class GameInterface extends JPanel implements Runnable {
     // SCREEN SETTINGS
     final int originalTileSize = 16;//64x64tile size
-    final int scale = 4; //Multiplier for how large tiles appear on screen
+    final int scale = 3; //Multiplier for how large tiles appear on screen
     final int tileSize = originalTileSize * scale;
 
     final int maxScreenCol = 30;
@@ -69,12 +69,12 @@ public class GameInterface extends JPanel implements Runnable {
     //Compute dice X positions so they are perfectly centered
     private void computeDicePositions() {
         int boxLeft = 100;
-        int boxRight = 1820;
-        int boxWidth = boxRight - boxLeft; // 1720
+        int boxRight = 1280;
+        int boxWidth = boxRight - boxLeft;
         int dieSize = 120;
         int totalDiceWidth = 5 * dieSize;
 
-        int spacing = (boxWidth - totalDiceWidth) / 6; // even spacing before/after each die
+        int spacing = (boxWidth - totalDiceWidth) / 9; // even spacing before/after each die
 
         int x = boxLeft + spacing;
         for (int i = 0; i < 5; i++) {
@@ -122,21 +122,21 @@ public class GameInterface extends JPanel implements Runnable {
 
         this.add(rollAllButton);
 
-    // ---------- SHOP BUTTON ----------
-    shopButton = new JButton("SHOP");
-    shopButton.setFont(new Font("Arial", Font.BOLD, 20));
-    // Position it to the left of ROLL
-    shopButton.setBounds(screenWidth/2 - 300, 450, 150, 50);
-    shopButton.addActionListener(e -> openShop());
-    this.add(shopButton);
+        // ---------- SHOP BUTTON ----------
+        shopButton = new JButton("SHOP");
+        shopButton.setFont(new Font("Arial", Font.BOLD, 20));
+        // Position it to the left of ROLL
+        shopButton.setBounds(screenWidth/2 - 300, 450, 150, 50);
+        shopButton.addActionListener(e -> openShop());
+        this.add(shopButton);
 
-    // ---------- INVENTORY BUTTON ----------
-    inventoryButton = new JButton("INVENTORY");
-    inventoryButton.setFont(new Font("Arial", Font.BOLD, 20));
-    // Position it to the right of ROLL
-    inventoryButton.setBounds(screenWidth/2 + 160, 450, 200, 50);
-    inventoryButton.addActionListener(e -> openInventory());
-    this.add(inventoryButton);
+        // ---------- INVENTORY BUTTON ----------
+        inventoryButton = new JButton("INVENTORY");
+        inventoryButton.setFont(new Font("Arial", Font.BOLD, 20));
+        // Position it to the right of ROLL
+        inventoryButton.setBounds(screenWidth/2 + 160, 450, 200, 50);
+        inventoryButton.addActionListener(e -> openInventory());
+        this.add(inventoryButton);
 
         // Each reroll button
         for (int i = 0; i < 5; i++) {
@@ -231,16 +231,16 @@ public class GameInterface extends JPanel implements Runnable {
             }
             animationFrames++;
         }
-            // Stop animation after 1 second
-            if (animationFrames >= maxAnimationFrames) {
-                rolling = false;
-                animationFrames = 0;
+        // Stop animation after 1 second
+        if (animationFrames >= maxAnimationFrames) {
+            rolling = false;
+            animationFrames = 0;
 
-                // Final actual roll using your Dice class
-                for (int i = 0; i < DICE_COUNT; i++) {
-                    diceValues[i] = main.Dice.rollDice(1);
-                }
+            // Final actual roll using your Dice class
+            for (int i = 0; i < DICE_COUNT; i++) {
+                diceValues[i] = main.Dice.rollDice(1);
             }
+        }
     }
 
 
@@ -283,9 +283,9 @@ public class GameInterface extends JPanel implements Runnable {
         // Draw the dice outer border
         g2.setColor(Color.white);
         g2.fillRect(100, 100, 10, 300);
-        g2.fillRect(1820, 100, 10, 300);
-        g2.fillRect(100, 100, 1720, 10);
-        g2.fillRect(100, 400, 1730, 10);
+        g2.fillRect(1280, 100, 10, 300);
+        g2.fillRect(100, 100, 1180, 10);
+        g2.fillRect(100, 400, 1190, 10);
 
         // Draw the roll counter
         g2.setColor(Color.white);
