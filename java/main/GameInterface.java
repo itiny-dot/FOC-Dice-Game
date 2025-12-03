@@ -23,7 +23,8 @@ public class GameInterface extends JPanel implements Runnable {
     // --- GAME STATE ---
     public static final int STATE_MENU = 0; //Start Menu
     public static final int STATE_PLAY = 1; //Game Menu
-    //public static final int STATE_SHOP = 2; //Start Menu
+    public static final int STATE_SHOP = 2; //Shop Menu
+    public static final int STATE_INVENTORY = 3;
     //public static final int STATE_UPGRADE = 3;
     private int gameState = STATE_MENU; //Starts game in Start Menu
 
@@ -41,6 +42,7 @@ public class GameInterface extends JPanel implements Runnable {
     private JButton startButton;
     private JButton tutorialButton;
     private JButton rollAllButton;
+    private JButton backButton;
     private JButton[] rerollButtons = new JButton[5];
     private JButton finishRollingButton;
     private JButton shopButton;
@@ -84,6 +86,7 @@ public class GameInterface extends JPanel implements Runnable {
     }
     // ---------------- MENU BUTTON ----------------
     private void setupMenuButtons() {
+        gameState = STATE_MENU;
         startButton = new JButton("START GAME");
         startButton.setFont(pixelFont.deriveFont(32f));
         startButton.setBounds(screenWidth/2 - 200, screenHeight/2 - 50, 400, 100);
@@ -97,14 +100,84 @@ public class GameInterface extends JPanel implements Runnable {
             JOptionPane.showMessageDialog(this, "HOW TO PLAY: BalaDice is a game of both luck and skill. The concept of the game\nis to roll dice to meet a score threshold that increases each successful round.\nScoring rules for the dice are modeled after Yahtzee rules. The objective of the game\nis to pass as many rounds as possible. There is a shop where you can purchase items\nthat make it easier to win. Good luck and have fun!");
         });
         this.add(tutorialButton);
+
+        
     }
-    private void switchToGame() {
-        gameState = STATE_PLAY;
-        startButton.setVisible(false);
-        tutorialButton.setVisible(false);
-        setupGameButtons();
+
+    private void switchToMenu() {
+        gameState = STATE_MENU;
+
+        // Hide game buttons
+        if (rollAllButton != null)      rollAllButton.setVisible(false);
+        if (backButton != null)         backButton.setVisible(false);
+        if (shopButton != null)         shopButton.setVisible(false);
+        if (inventoryButton != null)    inventoryButton.setVisible(false);
+        if (finishRollingButton != null)finishRollingButton.setVisible(false);
+        if (rerollButtons != null) {
+            for (JButton b : rerollButtons) {
+                if (b != null) b.setVisible(false);
+            }
+        }
+
+        // Show menu buttons (they were created in setupMenuButtons())
+        if (startButton != null)        startButton.setVisible(true);
+        if (tutorialButton != null)     tutorialButton.setVisible(true);
+
         repaint();
     }
+
+    private void switchToShop(){
+
+        gameState = STATE_SHOP;
+
+        // Hide game buttons
+        if (rollAllButton != null)      rollAllButton.setVisible(false);
+        if (backButton != null)         backButton.setVisible(true);
+        if (shopButton != null)         shopButton.setVisible(false);
+        if (inventoryButton != null)    inventoryButton.setVisible(false);
+        if (finishRollingButton != null)finishRollingButton.setVisible(false);
+        if (rerollButtons != null) {
+            for (JButton b : rerollButtons) {
+                if (b != null) b.setVisible(false);
+            }
+        }
+        if (startButton != null)        startButton.setVisible(false);
+        if (tutorialButton != null)     tutorialButton.setVisible(false);
+
+        repaint();
+    }
+
+    private void switchToInventory(){
+        gameState = STATE_INVENTORY;
+
+        // Hide game buttons
+        if (rollAllButton != null)      rollAllButton.setVisible(false);
+        if (backButton != null)         backButton.setVisible(true);
+        if (shopButton != null)         shopButton.setVisible(false);
+        if (inventoryButton != null)    inventoryButton.setVisible(false);
+        if (finishRollingButton != null)finishRollingButton.setVisible(false);
+        if (rerollButtons != null) {
+            for (JButton b : rerollButtons) {
+                if (b != null) b.setVisible(false);
+            }
+        }
+        if (startButton != null)        startButton.setVisible(false);
+        if (tutorialButton != null)     tutorialButton.setVisible(false);
+
+        repaint();
+    }
+    
+    private void switchToGame() {
+        gameState = STATE_PLAY;
+        if (startButton != null)        startButton.setVisible(false);
+        if (tutorialButton != null)     tutorialButton.setVisible(false);
+        if(rollAllButton == null){
+            setupGameButtons();
+        }
+        setGameButtonsVisible(true);
+        repaint();
+    }
+
     // ---------------- GAME BUTTONS ----------------
     private void setupGameButtons() {
         // Big roll button
@@ -121,6 +194,19 @@ public class GameInterface extends JPanel implements Runnable {
         });
 
         this.add(rollAllButton);
+
+        //Back button
+        backButton = new JButton("Back");
+        backButton.setFont(new Font("Arial", Font.BOLD, 20));
+        backButton.setBounds(100, 600, 150, 50);
+        backButton.addActionListener(e -> {
+            switch(gameState){
+                case 1: switchToMenu(); break;
+                case 2: switchToGame(); break;
+                case 3: switchToGame(); break;
+            }
+            });
+        this.add(backButton);
 
         // ---------- SHOP BUTTON ----------
         shopButton = new JButton("SHOP");
@@ -173,13 +259,31 @@ public class GameInterface extends JPanel implements Runnable {
         this.add(finishRollingButton);
     }
 
+    //to not create new ones but change the visibility
+    private void setGameButtonsVisible(boolean visible){
+        if (rollAllButton != null)       rollAllButton.setVisible(visible);
+        if (backButton != null)          backButton.setVisible(visible);
+        if (shopButton != null)          shopButton.setVisible(visible);
+        if (inventoryButton != null)     inventoryButton.setVisible(visible);
+        if (finishRollingButton != null) finishRollingButton.setVisible(visible);
+        if (rerollButtons != null) {
+            for (JButton b : rerollButtons) {
+                if (b != null) b.setVisible(visible);
+            }
+        }
+    }
+
     // ---------------- Shop Button ---------------
     private void openShop(){
-        JOptionPane.showMessageDialog(this, "Shop is not implemented yet");
+        //Shop shopItems = new Shop();
+        switchToShop();
+        repaint();
+        
     }
 
     private void openInventory(){
-        JOptionPane.showMessageDialog(this, "Inventory is not implemented yet");
+        switchToInventory();
+        repaint();
     }
 
     //Grays out buttons and makes them unusable when out of rerolls
@@ -197,6 +301,8 @@ public class GameInterface extends JPanel implements Runnable {
         gameThread = new Thread(this);
         gameThread.start();
     }
+
+    
 
     @Override
     public void run() {
@@ -249,10 +355,11 @@ public class GameInterface extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         this.setDoubleBuffered(true);
-        if (gameState == STATE_MENU) {
-            drawMenu(g2);
-        } else if (gameState == STATE_PLAY) {
-            drawGame(g2);
+        switch(gameState){
+            case 0: drawMenu(g2); break;
+            case 1: drawGame(g2); break;
+            case 2: drawShop(g2); break;
+            case 3: drawInventory(g2); break;
         }
     }
     public Font getPixelFont(float size) {
@@ -269,6 +376,28 @@ public class GameInterface extends JPanel implements Runnable {
             e.printStackTrace();
         }
     }
+
+    private void drawShop(Graphics2D g2){
+        g2.setColor(Color.white);
+        g2.setFont(new Font("Arial", Font.BOLD, 64));
+
+        String title = "Shop";
+        int width = g2.getFontMetrics().stringWidth(title);
+
+        g2.drawString(title, screenWidth/2 - width/2, 100);
+        
+    }
+
+    private void drawInventory(Graphics2D g2){
+        g2.setColor(Color.white);
+        g2.setFont(new Font("Arial", Font.BOLD, 64));
+
+        String title = "Inventory";
+        int width = g2.getFontMetrics().stringWidth(title);
+
+        g2.drawString(title, screenWidth/2 - width/2, 100);
+    }
+
     private void drawMenu(Graphics2D g2) {
         g2.setColor(Color.white);
         g2.setFont(new Font("Arial", Font.BOLD, 64));
@@ -278,6 +407,7 @@ public class GameInterface extends JPanel implements Runnable {
 
         g2.drawString(title, screenWidth/2 - width/2, 200);
     }
+
     private void drawGame(Graphics2D g2) {
 
         // Draw the dice outer border
